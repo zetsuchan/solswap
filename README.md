@@ -30,22 +30,7 @@ We maintain comprehensive monitoring of validator performance:
 
 ## Technical Architecture
 
-SolSwap is built on Solana using the Anchor framework, emphasizing security, efficiency, and scalability:
-
-### Smart Contract Structure
-```
-solswap/
-├── programs/
-│   └── solswap/
-│       ├── src/
-│       │   ├── state/
-│       │   ├── instructions/
-│       │   ├── math/
-│       │   └── lib.rs
-│       └── Cargo.toml
-└── app/
-    └── package.json
-```
+SolSwap is built on Solana using the Anchor framework, emphasizing security, efficiency, and scalability.
 
 ## Getting Started
 
