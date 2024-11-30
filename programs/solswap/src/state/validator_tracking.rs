@@ -44,6 +44,8 @@ pub struct ReservesTracker {
     pub total_reserves: u64,
     /// Breakdown by LST protocol
     pub protocol_reserves: Vec<ProtocolReserves>,
+    /// Add JitoSOL-specific reserves
+    pub jito_mev_rewards: u64,
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]

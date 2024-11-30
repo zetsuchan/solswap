@@ -14,6 +14,9 @@ pub struct RiskAdjustedPool {
     pub target_weights: Vec<TargetWeight>,
     /// Risk scores for each LST
     pub risk_scores: Vec<RiskScore>,
+    // Include new fields
+    pub jito_reserves: Option<JitoReserves>,
+    pub msol_pool: Option<LiquidStakePool>,
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]
@@ -56,4 +59,7 @@ pub struct RiskScore {
     pub decentralization_score: u8,
     /// Yield stability score (0-100)
     pub yield_stability_score: u8,
+    // New fields
+    pub mev_reliability_score: Option<u8>,      // For JitoSOL
+    pub validator_diversity_score: Option<u8>,  // For mSOL
 }

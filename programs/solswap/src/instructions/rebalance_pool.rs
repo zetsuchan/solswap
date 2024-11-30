@@ -37,6 +37,8 @@ pub fn handler(ctx: Context<RebalancePool>) -> Result<()> {
     }
     
     pool.last_rebalance = clock.unix_timestamp;
+
+    // Implement validator redistribution for mSOL
     
     Ok(())
 }
@@ -47,27 +49,30 @@ fn calculate_optimal_weights(
     target_weights: &[TargetWeight],
     max_weight: u8,
 ) -> Result<Vec<u16>> {
-    // Calculate composite risk score for each LST
     let risk_adjusted_weights: Vec<u16> = risk_scores
         .iter()
         .map(|score| {
-            let composite_score = (
+            let base_score = (
                 score.validator_score as u16 +
                 score.security_score as u16 +
                 score.decentralization_score as u16 +
                 score.yield_stability_score as u16
             ) / 4;
-            
-            // Adjust weight based on risk score
-            composite_score
+
+            let adjusted_score = if let Some(mev_score) = score.mev_reliability_score {
+                // Adjust for JitoSOL
+                (base_score + mev_score as u16) / 2
+            } else if let Some(diversity_score) = score.validator_diversity_score {
+                // Adjust for mSOL
+                (base_score + diversity_score as u16) / 2
+            } else {
+                base_score
+            };
+
+            // Ensure weight does not exceed max
+            adjusted_score.min(max_weight as u16 * 100)
         })
         .collect();
-    
-    // Apply maximum weight constraints
-    let mut final_weights = risk_adjusted_weights;
-    for weight in final_weights.iter_mut() {
-        *weight = (*weight).min(max_weight as u16 * 100);
-    }
-    
-    Ok(final_weights)
+
+    Ok(risk_adjusted_weights)
 }

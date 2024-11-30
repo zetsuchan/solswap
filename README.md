@@ -1,36 +1,49 @@
 # SolSwap: Advanced LST Aggregator and StableSwap Protocol
 
-SolSwap is a sophisticated protocol designed to revolutionize the management and trading of Liquid Staking Tokens (LSTs) on the Solana blockchain. By combining risk-adjusted token baskets, efficient swap mechanisms, and comprehensive validator tracking, SolSwap provides an innovative solution for LST liquidity and yield optimization.
+SolSwap is a sophisticated protocol designed to revolutionize the management and trading of Liquid Staking Tokens (LSTs) on the Solana blockchain, with advanced integration of JitoSOL and mSOL.
 
 ## Core Features
 
-Our protocol introduces several groundbreaking features to enhance the LST ecosystem:
-
 ### Risk-Adjusted LST Baskets
-We implement dynamic weighting of LST tokens based on multiple risk factors:
-- Validator performance metrics and historical reliability
-- Protocol security assessments
-- Decentralization measurements
-- Yield stability tracking
-- Automated rebalancing mechanisms
+- Dynamic weighting based on comprehensive risk factors
+- MEV-enhanced yield tracking for JitoSOL
+- Directed stake optimization for mSOL
+- Multi-factor risk scoring system
+- Automated rebalancing with MEV considerations
+
+### Advanced LST Integration
+#### JitoSOL Features
+- MEV rewards distribution system
+- Enhanced yield tracking
+- Auto-compounding mechanisms
+- MEV-boost network integration
+
+#### mSOL Features
+- Directed stake implementation
+- Validator diversity optimization
+- Enhanced decentralization metrics
+- Cross-protocol yield strategies
 
 ### Optimized StableSwap AMM
-Our specialized automated market maker is designed specifically for LST pairs:
 - Custom curve optimization for LST characteristics
+- MEV-aware pricing mechanisms
 - Dynamic fee adjustment based on pool balance
 - Concentrated liquidity for enhanced capital efficiency
-- Minimal slippage protection mechanisms
 
 ### Validator Tracking System
-We maintain comprehensive monitoring of validator performance:
 - Real-time performance metrics
-- Continuous uptime tracking
+- MEV reward tracking
+- Directed stake performance monitoring
 - Risk score calculations
 - Reserve verification systems
 
 ## Technical Architecture
 
-SolSwap is built on Solana using the Anchor framework, emphasizing security, efficiency, and scalability.
+Built on Solana using the Anchor framework, with specialized components for:
+- MEV reward distribution
+- Directed stake management
+- Cross-protocol yield optimization
+- Risk-adjusted pool management
 
 ## Getting Started
 
