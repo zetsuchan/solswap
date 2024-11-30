@@ -1,0 +1,15 @@
+[package]
+name = "solswap"
+version = "0.1.0"
+description = "LST Aggregator and Stableswap AMM"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+no-entrypoint = []
+
+[dependencies]
+solana-program = "1.17.0"
+anchor-lang = "0.29.0"
