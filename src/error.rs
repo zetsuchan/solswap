@@ -6,4 +6,8 @@ pub enum ErrorCode {
     PoolNotInitialized,
     #[msg("Invalid LST mint")]
     InvalidLSTMint,
+    #[msg("Oracle update too frequent")]
+    TooFrequentUpdate,
+    #[msg("Invalid oracle weight configuration")]
+    InvalidOracleWeights,
 }
