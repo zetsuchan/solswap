@@ -16,26 +16,45 @@ pub mod solswap {
 
     // ... (previous functions remain the same)
 
-    /// Updates liquidity protection parameters
-    pub fn update_protection_params(ctx: Context<LiquidityProtection>) -> Result<()> {
-        ctx.accounts.update_liquidity_parameters()
-    }
-
-    /// Initialize insurance fund
-    pub fn initialize_insurance_fund(
-        ctx: Context<InitializeInsuranceFund>,
+    /// Initialize a new validator state account
+    pub fn initialize_validator(
+        ctx: Context<InitializeValidator>,
+        validator_address: Pubkey,
         bump: u8,
     ) -> Result<()> {
-        let insurance_fund = &mut ctx.accounts.insurance_fund;
-        *insurance_fund = InsuranceFund::new(ctx.accounts.authority.key(), bump);
+        let validator_state = &mut ctx.accounts.validator_state;
+        
+        *validator_state = ValidatorState {
+            validator_address,
+            performance_history: [0; 30],
+            current_index: 0,
+            mev_rewards: 0,
+            total_stake: 0,
+            average_apr: 0,
+            missed_blocks: 0,
+            last_update: 0,
+            commission: 0,
+            authority: ctx.accounts.authority.key(),
+            bump,
+        };
+        
         Ok(())
+    }
+
+    /// Update validator metrics and recalculate risk scores
+    pub fn update_validator_metrics(
+        ctx: Context<UpdateValidatorMetrics>,
+        new_performance: u64,
+        new_mev_reward: u64,
+    ) -> Result<()> {
+        ctx.accounts.process_update(new_performance, new_mev_reward)
     }
 }
 
 #[derive(Accounts)]
-pub struct InitializeInsuranceFund<'info> {
-    #[account(init, payer = authority, space = InsuranceFund::LEN)]
-    pub insurance_fund: Account<'info, InsuranceFund>,
+pub struct InitializeValidator<'info> {
+    #[account(init, payer = authority, space = ValidatorState::LEN)]
+    pub validator_state: Account<'info, ValidatorState>,
     
     #[account(mut)]
     pub authority: Signer<'info>,

@@ -20,4 +20,8 @@ pub enum ErrorCode {
     InvalidFeeConfig,
     #[msg("Invalid insurance fund parameters")]
     InvalidInsuranceParams,
+    #[msg("Invalid update authority")]
+    InvalidAuthority,
+    #[msg("Invalid validator state")]
+    InvalidValidatorState,
 }
