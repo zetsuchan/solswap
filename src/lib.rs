@@ -7,6 +7,7 @@ mod error;
 use contexts::*;
 use state::*;
 use error::*;
+use state::oracle::{get_weighted_median_price};
 
 declare_id!("your_program_id_here");
 
@@ -41,6 +42,30 @@ pub mod solswap {
         let clock = Clock::get()?;
         pool_state.update_metrics(&clock);
         
+        Ok(())
+    }
+
+    /// Update oracle prices using weighted median and EMA calculation
+    pub fn update_price(
+        ctx: Context<UpdatePrice>
+    ) -> Result<()> {
+        // Get current weighted median price from oracles
+        let current_price = get_weighted_median_price(
+            &ctx.accounts.pyth_price_account,
+            &ctx.accounts.switchboard_feed,
+            &ctx.accounts.oracle_state
+        )?;
+
+        // Calculate new EMA
+        let ema_price = ctx.accounts.oracle_state.calculate_ema(current_price)?;
+        
+        // Update oracle state
+        let oracle_state = &mut ctx.accounts.oracle_state;
+        oracle_state.last_price = current_price;
+        oracle_state.ema_price = ema_price;
+        oracle_state.update_price_history(current_price);
+        oracle_state.last_update_ts = ctx.accounts.clock.unix_timestamp;
+
         Ok(())
     }
 }
