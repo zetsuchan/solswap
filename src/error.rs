@@ -14,4 +14,10 @@ pub enum ErrorCode {
     MathOverflow,
     #[msg("Invalid risk parameters")]
     InvalidRiskParameters,
+    #[msg("Invalid risk level provided")]
+    InvalidRiskLevel,
+    #[msg("Invalid fee configuration")]
+    InvalidFeeConfig,
+    #[msg("Invalid insurance fund parameters")]
+    InvalidInsuranceParams,
 }
