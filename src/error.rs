@@ -8,6 +8,10 @@ pub enum ErrorCode {
     InvalidLSTMint,
     #[msg("Oracle update too frequent")]
     TooFrequentUpdate,
-    #[msg("Invalid oracle weight configuration")]
+    #[msg("Invalid oracle weights")]
     InvalidOracleWeights,
+    #[msg("Math overflow occurred")]
+    MathOverflow,
+    #[msg("Invalid risk parameters")]
+    InvalidRiskParameters,
 }
